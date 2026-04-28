@@ -1,7 +1,7 @@
 # 🍹 Catálogo de Drinks e Coquetéis
 
 > Projeto da disciplina **Tuning de Dados** — Polyglot Persistence  
-> Universidade Municipal de São Caetano do Sul (USCS)
+> Fundação Educacional Inaciana Padre Sabóia de Medeiros(FEI)
 
 ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-4169E1?style=for-the-badge&logo=postgresql&logoColor=white)
 ![MongoDB](https://img.shields.io/badge/MongoDB-47A248?style=for-the-badge&logo=mongodb&logoColor=white)
@@ -154,4 +154,4 @@ catalogo-drinks/
 ## 📚 Disciplina
 
 **Tuning de Dados** — Projeto Polyglot Persistence  
-Universidade Municipal de São Caetano do Sul — USCS
+Fundação Educacional Inaciana Padre Sabóia de Medeiros(FEI)
