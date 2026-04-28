@@ -36,7 +36,7 @@ A aplicação foi estruturada para demonstrar o conceito de **Polyglot Persisten
 
 ## 🗄️ Arquitetura de Dados
 
-```
+```mermaid
 graph LR
     FE <--> BE
     BE <--> RDB[PostgreSQL]
