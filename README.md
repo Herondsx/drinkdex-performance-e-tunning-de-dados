@@ -18,7 +18,7 @@
 | Heron de Souza | 22.223.009-6 |
 | João Mateus E. B. da Silva | 22.223.013-8 |
 | Matheus Concon | 22.124.089-8 |
-| Dante Ryuk | xxxxxxx |
+| Dante Ryuichi Kawazu | 22.125.083.0 |
 
 ---
 
