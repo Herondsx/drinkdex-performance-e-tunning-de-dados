@@ -140,7 +140,7 @@ Se aparecer algo como `Docker version 27.x.x` ta tudo certo.
 Se tiver git instalado:
 
 ```bash
-git clone https://github.com/<usuario>/drinkdex.git
+[git clone https://github.com/<usuario>/drinkdex.git](https://github.com/Herondsx/drinkdex-performance-e-tunning-de-dados)
 cd drinkdex
 ```
 
