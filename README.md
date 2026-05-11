@@ -231,9 +231,3 @@ Os dados ficam salvos nos volumes do Docker, entao na proxima vez que subir com 
 | GET | `/favorites/:userId` | Lista favoritos do usuario |
 | GET | `/history/:userId` | Historico de visualizacoes |
 
----
-
-## Disciplina
-
-**Tuning de Dados** — Projeto Polyglot Persistence
-Fundação Educacional Inaciana Padre Sabóia de Medeiros (FEI)
