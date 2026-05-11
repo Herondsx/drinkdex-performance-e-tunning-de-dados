@@ -55,7 +55,7 @@ A ideia principal do projeto é demonstrar o conceito de **Polyglot Persistence*
 
 ---
 
-## Por que cada banco?
+## Escolha dos Bancos de Dados
 
 ### PostgreSQL — dados de usuario
 
@@ -100,7 +100,7 @@ drinkdex/
 
 ---
 
-## Como rodar
+## Como executar
 
 ### 1. Habilitar o Hyper-V (Windows 11 Pro)
 
