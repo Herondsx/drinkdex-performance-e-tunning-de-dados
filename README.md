@@ -16,7 +16,7 @@
 | Nome | RA |
 |------|----|
 | Heron de Souza | 22.223.009-6 |
-| João Mateus E. B. da Silva | xxxxxxx |
+| João Mateus E. B. da Silva | 22.223.013-8 |
 | Matheus Concon | xxxxxxx |
 | Dante Ryuk | xxxxxxx |
 
