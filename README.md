@@ -25,13 +25,13 @@
 
 ## Sobre o projeto
 
-O DrinkDex é um catalogo de drinks e coquetéis onde o usuario pode se cadastrar, explorar receitas, favoritar bebidas e ver quais drinks estão sendo mais acessados em tempo real.
+O DrinkDex é um catálogo de drinks e coquetéis onde o usuário pode se cadastrar, explorar receitas, favoritar bebidas e ver quais drinks estão sendo mais acessados em tempo real.
 
 A ideia principal do projeto é demonstrar o conceito de **Polyglot Persistence**, que basicamente é usar o banco de dados mais adequado pra cada tipo de dado, em vez de enfiar tudo num banco só. Cada banco tem um ponto forte e a gente tentou aproveitar isso:
 
-- Dados de usuario sao bem estruturados e precisam de consistencia → **PostgreSQL** (relacional)
+- Dados de usuário são bem estruturados e precisam de consistência → **PostgreSQL** (relacional)
 - Receitas de drinks variam muito entre si (ingredientes, modo de preparo, etc) → **MongoDB** (documento)
-- Rankings e favoritos precisam ser rapidos e nao precisam de persistencia forte → **Redis** (chave-valor em memoria)
+- Rankings e favoritos precisam ser rapidos e não precisam de persistência forte → **Redis** (chave-valor em memoria)
 - Recomendações baseadas em ingredientes compartilhados sao naturalmente um grafo → **Neo4j** (grafo)
 
 ---
@@ -146,7 +146,7 @@ drinkdex/
 
 ### 1. Habilitar o Hyper-V (Windows 11 Pro)
 
-O Docker usa o Hyper-V pra criar os containers. No Windows 11 Pro ele ja vem disponivel mas precisa ser ativado.
+O Docker usa o Hyper-V pra criar os containers. No Windows 11 Pro ele ja vem disponível mas precisa ser ativado.
 
 Abra o PowerShell como **Administrador** e rode:
 
@@ -173,7 +173,7 @@ Pra confirmar que funcionou, abra o PowerShell e rode:
 docker --version
 ```
 
-Se aparecer algo como `Docker version 27.x.x` ta tudo certo.
+Se aparecer algo como `Docker version 27.x.x` está tudo certo.
 
 ---
 
@@ -192,17 +192,17 @@ Ou baixe o .zip pelo GitHub e extraia a pasta normalmente.
 
 ### 4. Subir todos os servicos
 
-Com o Docker Desktop aberto e rodando, abra o terminal **dentro da pasta do projeto** (onde esta o `docker-compose.yml`) e rode:
+Com o Docker Desktop aberto e rodando, abra o terminal **dentro da pasta do projeto** (onde está o `docker-compose.yml`) e rode:
 
 ```bash
 docker compose up --build
 ```
 
-Na primeira vez demora mais pq ele baixa as imagens do PostgreSQL, MongoDB, Redis, Neo4j e Node. Das proximas vezes é bem mais rapido.
+Na primeira vez demora mais porque ele baixa as imagens do PostgreSQL, MongoDB, Redis, Neo4j e Node. Das próximas vezes é bem mais rapido.
 
 Quando aparecer no terminal algo como `frontend`, `user-service`, `drink-service`, `activity-service` e `recommendation-service` todos com "rodando na porta...", ta pronto.
 
-> **Atencao com o Neo4j:** ele demora uns ~30 segundos a mais que os outros pra ficar pronto. Se o `recommendation-service` reiniciar algumas vezes nos primeiros segundos, é normal — ele esta esperando o Neo4j subir.
+> **Atenção com o Neo4j:** ele demora uns ~30 segundos a mais que os outros pra ficar pronto. Se o `recommendation-service` reiniciar algumas vezes nos primeiros segundos, é normal — ele está esperando o Neo4j subir.
 
 ---
 
@@ -214,7 +214,7 @@ Abre outro terminal (com os containers ainda rodando) e execute:
 docker compose exec drink-service npm run seed
 ```
 
-Isso insere 10 drinks classicos (Mojito, Caipirinha, Margarita, Old Fashioned, etc.) pra ja ter conteudo na hora de abrir o sistema. Logo depois de inserir, o seed avisa automaticamente o `recommendation-service` pra **construir o grafo de ingredientes no Neo4j**, entao as recomendacoes ja saem prontas.
+Isso insere 10 drinks clássicos (Mojito, Caipirinha, Margarita, Old Fashioned, etc.) para já ter conteúdo na hora de abrir o sistema. Logo depois de inserir, o seed avisa automaticamente o `recommendation-service` pra **construir o grafo de ingredientes no Neo4j**, então as recomendacoes ja saem prontas.
 
 > Se quiser refazer o grafo manualmente em algum momento:
 > ```bash
@@ -237,7 +237,7 @@ Isso insere 10 drinks classicos (Mojito, Caipirinha, Margarita, Old Fashioned, e
 
 Abra o http://localhost:3000 no navegador e o sistema ja deve estar funcionando.
 
-> **Dica pra apresentacao:** abra tambem o http://localhost:7474 num segunda aba. Logue com usuario `neo4j` e senha `drinkdex123` e rode no console:
+> **Dica pra apresentacao:** abra também o http://localhost:7474 num segunda aba. Logue com usuario `neo4j` e senha `drinkdex123` e rode no console:
 > ```cypher
 > MATCH (d:Drink)-[:CONTEM]->(i:Ingrediente) RETURN d, i
 > ```
@@ -247,9 +247,9 @@ Abra o http://localhost:3000 no navegador e o sistema ja deve estar funcionando.
 
 ## 📊 Painel de Monitoramento
 
-Alem do frontend do DrinkDex, o projeto inclui um **painel de monitoramento** acessivel em http://localhost:3000/painel.html (ou clicando no botao **"📊 Painel"** no canto superior direito da tela principal).
+Além do frontend do DrinkDex, o projeto inclui um **painel de monitoramento** acessível em http://localhost:3000/painel.html (ou clicando no botão **"📊 Painel"** no canto superior direito da tela principal).
 
-Esse painel mostra **os 4 bancos operando em tempo real**, ideal para a apresentacao:
+Esse painel mostra **os 4 bancos operando em tempo real**:
 
 - **4 cards lado a lado**, um para cada banco (PostgreSQL, MongoDB, Redis, Neo4j)
 - **Contadores em tempo real** com auto-refresh a cada 3 segundos
@@ -262,8 +262,6 @@ Esse painel mostra **os 4 bancos operando em tempo real**, ideal para a apresent
 - **Log de atividades** mostrando qual API foi chamada e a resposta
 - **Animacao de "flash"** no card quando os dados mudam
 
-Recomendado para a apresentacao: deixar o painel aberto numa aba e clicar nos botoes para o professor ver os bancos populando em tempo real, com a contagem subindo e os cards piscando.
-
 ---
 
 ### Parar os containers
@@ -272,7 +270,7 @@ Recomendado para a apresentacao: deixar o painel aberto numa aba e clicar nos bo
 docker compose down
 ```
 
-Os dados ficam salvos nos volumes do Docker, entao na proxima vez que subir com `docker compose up` tudo continua como estava.
+Os dados ficam salvos nos volumes do Docker, então na próxima vez que subir com `docker compose up` tudo continua como estava.
 
 ---
 
@@ -301,7 +299,7 @@ Os dados ficam salvos nos volumes do Docker, entao na proxima vez que subir com 
 
 ### Activity Service (3003)
 
-| Metodo | Rota | O que faz |
+| Método | Rota | O que faz |
 |--------|------|-----------|
 | POST | `/view/:drinkId` | Registra que alguem visualizou o drink |
 | GET | `/ranking` | Retorna top 10 mais acessados |
@@ -312,7 +310,7 @@ Os dados ficam salvos nos volumes do Docker, entao na proxima vez que subir com 
 
 ### Recommendation Service (3004)
 
-| Metodo | Rota | O que faz | Operacao CRUD |
+| Método | Rota | O que faz | Operacao CRUD |
 |--------|------|-----------|---------------|
 | POST | `/ingredientes/:drinkId/:ingrediente` | Adiciona um ingrediente a um drink no grafo | **Create** |
 | GET | `/drinks/:drinkId/ingredientes` | Lista os ingredientes de um drink no grafo | **Read** |
