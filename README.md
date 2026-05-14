@@ -132,9 +132,12 @@ drinkdex/
 └── frontend/
     ├── Dockerfile
     └── public/
-        ├── index.html
+        ├── index.html              → pagina principal do DrinkDex (catalogo)
         ├── style.css
-        └── app.js
+        ├── app.js
+        ├── painel.html             → painel de monitoramento dos 4 bancos
+        ├── painel.css
+        └── painel.js
 ```
 
 ---
@@ -323,29 +326,38 @@ Os dados ficam salvos nos volumes do Docker, entao na proxima vez que subir com 
 
 ## Roteiro de demonstracao do CRUD (para apresentacao)
 
-O projeto faz CRUD completo nos 4 bancos. Aqui esta o roteiro pra demonstrar cada um na hora da apresentacao:
+O projeto faz CRUD completo nos 4 bancos. Aqui esta o roteiro pra demonstrar cada um na hora da apresentacao.
 
-### 1. PostgreSQL — CRUD de usuarios (via frontend)
-- **Create:** clica em "Cadastrar" → preenche nome/email/senha → cria conta
-- **Read:** faz login → o sistema busca o usuario no Postgres
-- **Update:** (via API) `PUT http://localhost:3001/users/:id` com novo nome/email
-- **Delete:** (via API) `DELETE http://localhost:3001/users/:id`
+> **💡 Forma mais facil:** abra o **Painel de Monitoramento** em http://localhost:3000/painel.html.
+> Ele tem 4 botoes que disparam operacoes ao vivo em cada um dos bancos, e voce ve a contagem subindo em tempo real nos cards. Para a apresentacao isso é muito mais visual que rodar comandos no terminal.
 
-### 2. MongoDB — CRUD de drinks (via frontend)
-- **Create:** logado, clica em "+ Novo Drink" → preenche o formulario → salva
-- **Read:** pagina inicial ja lista os drinks; clica em qualquer um pra ver detalhes
-- **Update:** na pagina do drink, clica em "✏️ Editar" → altera algo → salva
-- **Delete:** na pagina do drink, clica em "🗑️ Excluir"
+### 1. PostgreSQL — CRUD de usuarios
 
-### 3. Redis — CRUD de atividades (via frontend)
-- **Create:** clica em qualquer drink (registra view e incrementa o ranking) e em "♡ Favoritar"
-- **Read:** menu "Favoritos" e "Historico"; pagina inicial mostra o ranking
-- **Update:** clicar varias vezes em drinks diferentes atualiza o ranking em tempo real
-- **Delete:** clicar em "♥ Favoritado" remove dos favoritos
+**Pelo Painel:** clica no botao **"+ Criar usuario teste"** — cria um usuario aleatorio e o card do PostgreSQL pisca mostrando o novo total.
 
-### 4. Neo4j — CRUD do grafo de ingredientes (via terminal + Neo4j Browser)
+**Pelo Frontend:** clica em "Cadastrar" → preenche nome/email/senha → cria conta. Faz login normalmente para ler. Para update/delete:
+```powershell
+curl -X PUT http://localhost:3001/users/<USER_ID> -H "Content-Type: application/json" -d "{\"name\":\"Novo Nome\"}"
+curl -X DELETE http://localhost:3001/users/<USER_ID>
+```
 
-**Antes de tudo,** abra o Neo4j Browser em http://localhost:7474, logue com `neo4j` / `drinkdex123` e rode:
+### 2. MongoDB — CRUD de drinks
+
+**Pelo Painel:** clica em **"+ Criar drink teste"** — cria um drink random com ingredientes aleatorios. O card do MongoDB pisca e o contador sobe.
+
+**Pelo Frontend:** logado, clica em "+ Novo Drink" → preenche o formulario → salva. Para editar, abre a pagina do drink e clica em "✏️ Editar". Para excluir, "🗑️ Excluir". Read = pagina inicial ja lista tudo.
+
+### 3. Redis — CRUD de atividades
+
+**Pelo Painel:** clica em **"👁 Visualizar drink aleatorio"** — incrementa o ranking de um drink aleatorio. Pode clicar varias vezes pra ver o ranking se reorganizando.
+
+**Pelo Frontend:** abre qualquer drink (registra view + ranking), clica em "♡ Favoritar" (Create), menu "Favoritos"/"Historico" (Read), reclique no coracao remove (Delete).
+
+### 4. Neo4j — CRUD do grafo de ingredientes
+
+**Pelo Painel:** clica em **"🔗 Re-sincronizar grafo"** — recria todo o grafo a partir dos drinks atuais no MongoDB. O card do Neo4j pisca mostrando os ingredientes unicos.
+
+**Visualizacao do grafo:** abra http://localhost:7474, logue com `neo4j` / `drinkdex123` e rode:
 
 ```cypher
 MATCH (d:Drink)-[:CONTEM]->(i:Ingrediente) RETURN d, i
@@ -353,7 +365,7 @@ MATCH (d:Drink)-[:CONTEM]->(i:Ingrediente) RETURN d, i
 
 Vai aparecer o grafo inteiro com todos os drinks ligados aos ingredientes. Deixe essa aba aberta — toda vez que voce fizer uma operacao, **basta clicar em "Run" de novo pra ver o grafo atualizado em tempo real**. Isso é o ponto alto da apresentacao!
 
-Pra pegar o ID de um drink pra testar, no terminal:
+**CRUD individual (alem do bulk via /sync no Painel):** se quiser demonstrar Create/Read/Update/Delete em nos especificos do grafo via terminal, pegue primeiro um ID de drink:
 
 ```powershell
 curl http://localhost:3002/drinks
