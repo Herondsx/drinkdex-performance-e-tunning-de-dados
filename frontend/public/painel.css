@@ -1,0 +1,360 @@
+/* painel.css — estilos exclusivos do dashboard de monitoramento
+   reaproveita variaveis e header do style.css principal */
+
+.painel-main {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.painel-info {
+  margin-bottom: 2rem;
+}
+
+.painel-info h2 {
+  color: var(--accent);
+  margin-bottom: 0.5rem;
+  font-size: 1.6rem;
+}
+
+.painel-info p {
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+.painel-info strong {
+  color: var(--text);
+}
+
+/* ---- indicador de status no header ---- */
+
+.status-indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  background: var(--bg);
+  padding: 0.4rem 0.9rem;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+}
+
+.pulse {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #22c55e;
+  box-shadow: 0 0 8px #22c55e;
+  animation: pulse-anim 2s ease-in-out infinite;
+}
+
+@keyframes pulse-anim {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%      { opacity: 0.4; transform: scale(1.5); }
+}
+
+/* ---- secao de acoes ---- */
+
+.acoes-rapidas {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  box-shadow: var(--shadow);
+}
+
+.acoes-rapidas h3 {
+  margin-bottom: 0.5rem;
+  color: var(--accent);
+}
+
+.acoes-desc {
+  color: var(--text-muted);
+  margin-bottom: 1.25rem;
+  font-size: 0.95rem;
+}
+
+.acoes-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 0.75rem;
+}
+
+.btn-acao {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  padding: 1rem 1.2rem;
+  background: var(--bg);
+  border: 2px solid var(--border);
+  border-radius: 10px;
+  color: var(--text);
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.18s ease;
+  font-family: inherit;
+}
+
+.btn-acao:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+}
+
+.btn-acao.postgres:hover { border-color: #4169E1; }
+.btn-acao.mongo:hover    { border-color: #47A248; }
+.btn-acao.redis:hover    { border-color: #FF4438; }
+.btn-acao.neo4j:hover    { border-color: #4581C3; }
+
+.btn-acao .btn-icon {
+  font-size: 1.5rem;
+  width: 38px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--surface);
+  border-radius: 8px;
+  flex-shrink: 0;
+}
+
+.btn-acao strong {
+  display: block;
+  font-size: 0.95rem;
+  margin-bottom: 0.2rem;
+}
+
+.btn-acao small {
+  color: var(--text-muted);
+  font-size: 0.78rem;
+  font-family: 'Consolas', 'Monaco', monospace;
+}
+
+/* ---- log de acoes ---- */
+
+.acao-log {
+  margin-top: 1.25rem;
+  max-height: 180px;
+  overflow-y: auto;
+  font-family: 'Consolas', 'Monaco', monospace;
+  font-size: 0.85rem;
+  background: var(--bg);
+  border-radius: 8px;
+  padding: 0.6rem;
+  border: 1px solid var(--border);
+}
+
+.acao-log > div {
+  padding: 0.45rem 0.7rem;
+  margin-bottom: 0.3rem;
+  border-radius: 6px;
+  background: var(--surface);
+  border-left: 3px solid var(--text-muted);
+  line-height: 1.4;
+}
+
+.acao-log .log-tempo {
+  color: var(--text-muted);
+  margin-right: 0.5rem;
+}
+
+.acao-log .log-sucesso { border-left-color: #22c55e; color: #86efac; }
+.acao-log .log-erro    { border-left-color: var(--danger); color: #fca5a5; }
+.acao-log .log-info    { border-left-color: var(--accent); color: var(--text); }
+
+/* ---- grid de bancos ---- */
+
+.bancos-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+@media (max-width: 900px) {
+  .bancos-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.banco-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  border-top: 4px solid;
+  transition: box-shadow 0.3s, transform 0.3s;
+  box-shadow: var(--shadow);
+}
+
+.banco-card.postgres { border-top-color: #4169E1; }
+.banco-card.mongo    { border-top-color: #47A248; }
+.banco-card.redis    { border-top-color: #FF4438; }
+.banco-card.neo4j    { border-top-color: #4581C3; }
+
+/* animacao quando os dados mudam */
+.banco-card.flash {
+  animation: flash-anim 0.8s ease;
+}
+
+@keyframes flash-anim {
+  0%   { box-shadow: 0 0 0 0 rgba(245, 158, 11, 0); }
+  30%  { box-shadow: 0 0 0 8px rgba(245, 158, 11, 0.4); transform: translateY(-3px); }
+  100% { box-shadow: var(--shadow); transform: translateY(0); }
+}
+
+.banco-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+}
+
+.banco-icon {
+  font-size: 2.5rem;
+  line-height: 1;
+}
+
+.banco-titulo h3 {
+  margin: 0;
+  font-size: 1.3rem;
+}
+
+.banco-tipo {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.banco-status {
+  margin-left: auto;
+  font-size: 1.5rem;
+  color: var(--text-muted);
+  cursor: help;
+}
+
+.banco-status.online {
+  color: #22c55e;
+  text-shadow: 0 0 8px #22c55e;
+}
+
+.banco-status.offline {
+  color: var(--danger);
+  text-shadow: 0 0 8px var(--danger);
+}
+
+.banco-stat {
+  display: flex;
+  align-items: baseline;
+  gap: 0.8rem;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.banco-stat-num {
+  font-size: 3rem;
+  font-weight: 700;
+  color: var(--accent);
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+.banco-stat-label {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+}
+
+.banco-card h4 {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.7px;
+  margin-bottom: 0.75rem;
+  font-weight: 600;
+}
+
+.banco-lista {
+  min-height: 50px;
+}
+
+.item-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.6rem 0.85rem;
+  background: var(--bg);
+  border-radius: 8px;
+  margin-bottom: 0.4rem;
+  border: 1px solid var(--border);
+  transition: border-color 0.2s;
+}
+
+.item-row:hover {
+  border-color: var(--accent);
+}
+
+.item-nome {
+  font-weight: 500;
+  color: var(--text);
+  font-size: 0.95rem;
+}
+
+.item-detail {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+}
+
+.vazio {
+  color: var(--text-muted);
+  text-align: center;
+  padding: 1.2rem 0.5rem;
+  font-style: italic;
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.banco-rodape {
+  margin-top: 1.25rem;
+  padding-top: 0.85rem;
+  border-top: 1px dashed var(--border);
+}
+
+.banco-rodape code {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  font-family: 'Consolas', 'Monaco', monospace;
+  word-break: break-all;
+}
+
+/* ---- rodape do painel ---- */
+
+.painel-rodape {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.25rem 1.5rem;
+  color: var(--text-muted);
+  font-size: 0.92rem;
+  line-height: 1.6;
+}
+
+.painel-rodape strong {
+  color: var(--text);
+}
+
+.painel-rodape code {
+  background: var(--bg);
+  padding: 0.15rem 0.45rem;
+  border-radius: 4px;
+  color: var(--accent);
+  font-family: 'Consolas', 'Monaco', monospace;
+  font-size: 0.85rem;
+}
+
+.painel-rodape a {
+  font-weight: 600;
+}

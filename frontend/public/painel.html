@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DrinkDex — Painel de Monitoramento</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="painel.css">
+</head>
+<body>
+  <header>
+    <div class="header-brand">
+      <span class="logo">📊</span>
+      <h1>Painel de Monitoramento</h1>
+    </div>
+    <nav>
+      <a href="index.html" class="nav-link">← Voltar ao DrinkDex</a>
+    </nav>
+    <div class="auth-area">
+      <span class="status-indicator">
+        <span class="pulse"></span>
+        <span id="status-text">Inicializando...</span>
+      </span>
+    </div>
+  </header>
+
+  <main class="painel-main">
+
+    <section class="painel-info">
+      <h2>Polyglot Persistence em Ação</h2>
+      <p>Este painel mostra os <strong>4 bancos de dados</strong> do DrinkDex operando em tempo real. Os dados sao atualizados automaticamente a cada 3 segundos. Use os botoes abaixo para disparar operacoes ao vivo e ver os dados aparecendo nos respectivos bancos.</p>
+    </section>
+
+    <section class="acoes-rapidas">
+      <h3>⚡ Acoes de Demonstracao</h3>
+      <p class="acoes-desc">Clique nos botoes para criar dados ao vivo. Veja a contagem dos bancos aumentando em tempo real nos cards abaixo.</p>
+      <div class="acoes-grid">
+        <button class="btn-acao postgres" onclick="criarUsuarioTeste()">
+          <span class="btn-icon">+</span>
+          <div>
+            <strong>Criar usuario teste</strong>
+            <small>POST :3001/register → PostgreSQL</small>
+          </div>
+        </button>
+
+        <button class="btn-acao mongo" onclick="criarDrinkTeste()">
+          <span class="btn-icon">+</span>
+          <div>
+            <strong>Criar drink teste</strong>
+            <small>POST :3002/drinks → MongoDB</small>
+          </div>
+        </button>
+
+        <button class="btn-acao redis" onclick="visualizarAleatorio()">
+          <span class="btn-icon">👁</span>
+          <div>
+            <strong>Visualizar drink aleatorio</strong>
+            <small>POST :3003/view/:id → Redis</small>
+          </div>
+        </button>
+
+        <button class="btn-acao neo4j" onclick="ressincronizarGrafo()">
+          <span class="btn-icon">🔗</span>
+          <div>
+            <strong>Re-sincronizar grafo</strong>
+            <small>POST :3004/sync → Neo4j</small>
+          </div>
+        </button>
+      </div>
+      <div class="acao-log" id="acao-log">
+        <div class="log-info">[sistema] Painel iniciado. Aguardando operacoes...</div>
+      </div>
+    </section>
+
+    <section class="bancos-grid">
+
+      <div class="banco-card postgres">
+        <div class="banco-header">
+          <span class="banco-icon">🐘</span>
+          <div class="banco-titulo">
+            <h3>PostgreSQL</h3>
+            <span class="banco-tipo">Banco Relacional</span>
+          </div>
+          <span class="banco-status" id="status-pg" title="Status">●</span>
+        </div>
+        <div class="banco-stat">
+          <span class="banco-stat-num" id="pg-count">—</span>
+          <span class="banco-stat-label">usuarios cadastrados</span>
+        </div>
+        <h4>Ultimos usuarios cadastrados</h4>
+        <div id="pg-list" class="banco-lista"></div>
+        <div class="banco-rodape">
+          <code>GET http://localhost:3001/users</code>
+        </div>
+      </div>
+
+      <div class="banco-card mongo">
+        <div class="banco-header">
+          <span class="banco-icon">🍃</span>
+          <div class="banco-titulo">
+            <h3>MongoDB</h3>
+            <span class="banco-tipo">Banco de Documentos</span>
+          </div>
+          <span class="banco-status" id="status-mongo" title="Status">●</span>
+        </div>
+        <div class="banco-stat">
+          <span class="banco-stat-num" id="mongo-count">—</span>
+          <span class="banco-stat-label">drinks no catalogo</span>
+        </div>
+        <h4>Ultimos drinks cadastrados</h4>
+        <div id="mongo-list" class="banco-lista"></div>
+        <div class="banco-rodape">
+          <code>GET http://localhost:3002/drinks</code>
+        </div>
+      </div>
+
+      <div class="banco-card redis">
+        <div class="banco-header">
+          <span class="banco-icon">⚡</span>
+          <div class="banco-titulo">
+            <h3>Redis</h3>
+            <span class="banco-tipo">Chave-Valor em memoria</span>
+          </div>
+          <span class="banco-status" id="status-redis" title="Status">●</span>
+        </div>
+        <div class="banco-stat">
+          <span class="banco-stat-num" id="redis-count">—</span>
+          <span class="banco-stat-label">drinks no ranking</span>
+        </div>
+        <h4>Top 10 drinks mais visualizados</h4>
+        <div id="redis-list" class="banco-lista"></div>
+        <div class="banco-rodape">
+          <code>GET http://localhost:3003/ranking</code>
+        </div>
+      </div>
+
+      <div class="banco-card neo4j">
+        <div class="banco-header">
+          <span class="banco-icon">🕸️</span>
+          <div class="banco-titulo">
+            <h3>Neo4j</h3>
+            <span class="banco-tipo">Banco de Grafos</span>
+          </div>
+          <span class="banco-status" id="status-neo4j" title="Status">●</span>
+        </div>
+        <div class="banco-stat">
+          <span class="banco-stat-num" id="neo4j-count">—</span>
+          <span class="banco-stat-label">ingredientes unicos no grafo</span>
+        </div>
+        <h4>Top 10 ingredientes mais usados</h4>
+        <div id="neo4j-list" class="banco-lista"></div>
+        <div class="banco-rodape">
+          <code>GET http://localhost:3004/ingredientes/populares</code>
+        </div>
+      </div>
+
+    </section>
+
+    <section class="painel-rodape">
+      <p>
+        Para ver o <strong>grafo do Neo4j renderizado visualmente</strong>, abra
+        <a href="http://localhost:7474" target="_blank">http://localhost:7474</a>
+        (login: <code>neo4j</code> / <code>drinkdex123</code>) e rode a query:
+        <code>MATCH (d:Drink)-[:CONTEM]->(i:Ingrediente) RETURN d, i</code>
+      </p>
+    </section>
+
+  </main>
+
+  <script src="painel.js"></script>
+</body>
+</html>
