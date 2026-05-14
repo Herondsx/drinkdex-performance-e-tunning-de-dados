@@ -32,7 +32,7 @@ A ideia principal do projeto é demonstrar o conceito de **Polyglot Persistence*
 - Dados de usuario sao bem estruturados e precisam de consistencia → **PostgreSQL** (relacional)
 - Receitas de drinks variam muito entre si (ingredientes, modo de preparo, etc) → **MongoDB** (documento)
 - Rankings e favoritos precisam ser rapidos e nao precisam de persistencia forte → **Redis** (chave-valor em memoria)
-- Recomendacoes baseadas em ingredientes compartilhados sao naturalmente um grafo → **Neo4j** (grafo)
+- Recomendações baseadas em ingredientes compartilhados sao naturalmente um grafo → **Neo4j** (grafo)
 
 ---
 
