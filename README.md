@@ -80,7 +80,7 @@ flowchart TB
 
 ### PostgreSQL — dados de usuario
 
-Usuarios tem nome, email, senha, data de cadastro — tudo muito bem definido e que nao muda. Alem disso, a gente precisa garantir que dois usuarios nao tenham o mesmo email, o que é exatamente o tipo de coisa que um banco relacional faz bem com constraints. Escolhemos o PostgreSQL pela robustez e suporte completo a ACID.
+Usuarios tem nome, email, senha, data de cadastro — tudo muito bem definido e esses dados não mudam. Além disso, a gente precisa garantir que dois usuarios não tenham o mesmo email, o que é exatamente o tipo de coisa que um banco relacional faz bem com constraints. Escolhemos o PostgreSQL pela robustez e suporte completo a ACID.
 
 ### MongoDB — receitas de drinks
 
@@ -88,11 +88,11 @@ Cada drink é diferente. Um tem 3 ingredientes, outro tem 10. Um tem foto, outro
 
 ### Redis — ranking, favoritos e historico
 
-Pra saber quais drinks estao sendo mais acessados em tempo real, precisamos de algo extremamente rapido. O Redis tem uma estrutura chamada **Sorted Set** que é perfeita pra isso — cada drink tem um "score" que a gente incrementa a cada visualizacao e dai pede os top 10. Pra favoritos usamos **Set** (sem duplicatas automatico) e pra historico usamos **List** (ordenada por insercao).
+Pra saber quais drinks estão sendo mais acessados em tempo real, precisamos de algo extremamente rápido. O Redis tem uma estrutura chamada **Sorted Set** que é perfeita pra isso — cada drink tem um "score" que a gente incrementa a cada visualização e daí pede os top 10. Pra favoritos usamos **Set** (sem duplicatas automático) e pra histórico usamos **List** (ordenada por inserção).
 
 ### Neo4j — recomendacoes por ingredientes
 
-Recomendar drinks similares ("se voce gostou de Mojito, talvez goste de Daiquiri") é um problema classicamente resolvido com **grafos**. Cada drink vira um no, cada ingrediente vira um no, e a gente cria a relacao `(Drink)-[:CONTEM]->(Ingrediente)`. Pra recomendar drinks parecidos basta uma travessia de grafo: "quais outros drinks compartilham mais ingredientes com este?".
+Recomendar drinks similares ("se voce gostou de Mojito, talvez goste de Daiquiri") é um problema classicamente resolvido com **grafos**. Cada drink vira um no, cada ingrediente vira um no, e a gente cria a relação `(Drink)-[:CONTEM]->(Ingrediente)`. Pra recomendar drinks parecidos basta uma travessia de grafo: "quais outros drinks compartilham mais ingredientes com este?".
 
 Fazer isso no PostgreSQL exigiria varios JOINs em tabelas de drinks, ingredientes e relacionamentos, e a query ficaria pesada. No Mongo, daria pra fazer com `$lookup` mas perderia a expressividade. No Neo4j a consulta é uma linha de **Cypher**:
 
