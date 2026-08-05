@@ -237,12 +237,6 @@ Isso insere 10 drinks clássicos (Mojito, Caipirinha, Margarita, Old Fashioned, 
 
 Abra o http://localhost:3000 no navegador e o sistema ja deve estar funcionando.
 
-> **Dica pra apresentacao:** abra também o http://localhost:7474 num segunda aba. Logue com usuario `neo4j` e senha `drinkdex123` e rode no console:
-> ```cypher
-> MATCH (d:Drink)-[:CONTEM]->(i:Ingrediente) RETURN d, i
-> ```
-> Vai aparecer o grafo inteiro renderizado em forma visual, mostrando como os drinks compartilham ingredientes. Da pra mexer, arrastar e zoom — fica bem demonstrativo.
-
 ---
 
 ## 📊 Painel de Monitoramento
