@@ -1,6 +1,6 @@
 # 🍹 DrinkDex — Catálogo de Drinks e Coquetéis
 
-> Projeto da disciplina **Tuning de Dados** — Polyglot Persistence
+> Projeto da disciplina **Tuning de Dados** — Polyglot Persistence s<br>
 > Fundação Educacional Inaciana Padre Sabóia de Medeiros (FEI)
 
 ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-4169E1?style=for-the-badge&logo=postgresql&logoColor=white)
